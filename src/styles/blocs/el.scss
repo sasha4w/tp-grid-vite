@@ -17,7 +17,9 @@
         grid-column: $i;
       }
     }
+  }
 
+  @include large-only {
     $externalRows: 57 71 8, 89 103 9; /* From, to, row */
 
     @each $from, $to, $row in $externalRows {
@@ -29,6 +31,14 @@
         &:nth-child(#{$i}) {
           grid-column: $i - $from + 4;
         }
+      }
+    }
+  }
+
+  @include wide {
+    @for $i from 3 through 18 {
+      &[data-group='#{$i}'] {
+        grid-column: $i + 14;
       }
     }
   }
