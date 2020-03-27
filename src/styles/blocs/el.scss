@@ -17,6 +17,20 @@
         grid-column: $i;
       }
     }
+
+    $externalRows: 57 71 8, 89 103 9; /* From, to, row */
+
+    @each $from, $to, $row in $externalRows {
+      &:nth-child(n + #{$from}):nth-child(-n + #{$to}) {
+        grid-row: $row;
+      }
+
+      @for $i from $from through $to {
+        &:nth-child(#{$i}) {
+          grid-column: $i - $from + 4;
+        }
+      }
+    }
   }
 }
 
