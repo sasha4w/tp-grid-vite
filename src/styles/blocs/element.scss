@@ -1,4 +1,4 @@
-.el {
+.element {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -6,21 +6,22 @@
   background-color: lightgrey;
 
   @include large {
-    @for $i from 1 through 7 {
-      &[data-period='#{$i}'] {
-        grid-row: $i;
+    @for $period from 1 through 7 {
+      &[data-period='#{$period}'] {
+        grid-row: $period;
       }
     }
 
-    @for $i from 1 through 18 {
-      &[data-group='#{$i}'] {
-        grid-column: $i;
+    @for $group from 1 through 18 {
+      &[data-group='#{$group}'] {
+        grid-column: $group;
       }
     }
   }
 
   @include large-only {
     $externalRows: 57 71 8, 89 103 9; /* From, to, row */
+    $externalOffset: 4;
 
     @each $from, $to, $row in $externalRows {
       &:nth-child(n + #{$from}):nth-child(-n + #{$to}) {
@@ -29,7 +30,7 @@
 
       @for $i from $from through $to {
         &:nth-child(#{$i}) {
-          grid-column: $i - $from + 4;
+          grid-column: $i - $from + $externalOffset;
         }
       }
     }
@@ -47,19 +48,19 @@
 $types: alkaliMetal lanthanide nobleGas transitionMetal postTransitionMetal
   alkalineEarthMetal actinide metalloid otherNonMetal;
 
-$step: 360deg / length($types);
+$step: calc(360deg / length($types));
 
 @each $type in $types {
-  .el--#{$type} {
+  .element--#{$type} {
     $index: index($types, $type);
     background-color: hsl($step * $index, 80%, 80%);
   }
 }
 
-.el__symbol {
+.element__symbol {
   font-size: 1.5em;
 }
 
-.el__name {
-  font-size: 12px;
+.element__name {
+  font-size: 0.75rem;
 }

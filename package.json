@@ -1,27 +1,15 @@
 {
-  "name": "responsive-02-grid-hetic",
-  "version": "1.0.0",
-  "description": "## Entraînement",
-  "main": "index.js",
+  "name": "tp-grid-vite",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "serve": "parcel src/index.html"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bcalou/responsive-02-grid-hetic.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/bcalou/responsive-02-grid-hetic/issues"
-  },
-  "homepage": "https://github.com/bcalou/responsive-02-grid-hetic#readme",
   "devDependencies": {
-    "parcel": "^1.12.4",
-    "sass": "^1.26.3"
-  },
-  "dependencies": {
-    "reset.css": "^2.0.2"
+    "sass": "^1.57.1",
+    "vite": "^4.0.0"
   }
 }

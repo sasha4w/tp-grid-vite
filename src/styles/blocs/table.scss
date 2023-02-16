@@ -1,13 +1,13 @@
-body {
+.table {
+  flex-grow: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  grid-auto-rows: 100px;
+  grid-template-columns: repeat(auto-fill, minmax(6.25rem, 1fr));
+  grid-auto-rows: 6.25rem;
   font-family: Verdana, sans-serif;
 
   @include large {
     grid-template-columns: repeat(18, 1fr);
     grid-template-rows: repeat(9, 1fr);
-    min-height: 100vh;
   }
 
   @include wide {

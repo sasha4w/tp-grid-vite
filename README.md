@@ -1,10 +1,6 @@
-# Modern responsive part 2 : Grid
-
-## Entraînement
+# TP — Grid + Vite
 
 Pour se familiariser avec les différentes propriétés : [Grid Garden](https://cssgridgarden.com/#fr)
-
-## TP : à vous !
 
 Le but de ce TP est d'utiliser CSS Grid pour intégrer simplement un tableau complexe : le tableau périodique des éléments.
 
@@ -12,12 +8,33 @@ Le but de ce TP est d'utiliser CSS Grid pour intégrer simplement un tableau com
 
 Le tableau interactif (mais non responsive !) qui nous servira de référence se trouve [ici](https://www.ptable.com/?lang=en).
 
-### Étape 0 : mise en place
+## Étape 0 : mise en place
 
 - Créer un fork de ce repository
 - Cloner le fork sur votre machine
+- Ouvrir le projet dans votre éditeur (VSCode recommandé)
 
-### Étape 1 : Comprendre le tableau et le HTML
+### Lancement de vite
+
+L'environnement de travail pour ce TP utilise [Vite](https://vitejs.dev/), un outil d'empaquetage moderne et rapide. Pour simplifier, il prend toutes vos ressources "brutes" (html, scss, images...) et se charge de tout compiler pour le développement en local ou le déploiement en production.
+
+- Ouvrez un terminal depuis votre éditeur puis lancez l'installation des dépendances du projet :
+
+```
+npm install
+```
+
+*Note : `npm` est le gestionnaire de paquets de node. Il a été installé automatiquement avec ce dernier.*
+
+- Lancez Vite en mode développement
+
+```
+npm run dev
+```
+
+Votre serveur local est maintenant disponible à l'URL fournie par Vite.
+
+## Étape 1 : Comprendre le tableau et le HTML
 
 Le fichier `index.html` contient déjà ce qu'il nous faut : la liste de tous les
 éléments.
@@ -26,17 +43,17 @@ _Note : Pour simplifier, nous allons ignorer les deux lignes "externes" au table
 
 Voici par exemple l'**Argon** en BEM (rappel : l'élément `<abbr>` représente une abbréviation):
 
-```
-<article class="el el--nobleGas" data-period="3" data-group="18">
-  <p class="el__number">18</p>
-  <abbr class="el__symbol">Ar</abbr>
-  <p class="el__name">Argon</p>
+```html
+<article class="element element--nobleGas" data-period="3" data-group="18">
+  <p class="element__number">18</p>
+  <abbr class="element__symbol">Ar</abbr>
+  <p class="element__name">Argon</p>
 </article>
 ```
 
 Prenez le temps de bien comprendre chaque information, en comparant avec le tableau de référence :
 
-- `el--nobleGas` : modificateur BEM désignant le type d'élement. L'argon est un gaz noble.
+- `element--nobleGas` : modificateur BEM désignant le type d'élement. Dans cet exemple, cela permet de savoir que l'argon est un gaz noble.
 - `data-period="3"` : attribut désignant la ligne sur laquelle se trouve l'élément (la période, pour les intimes). L'argon se trouve sur la troisième ligne.
 - `data-group="18"`: attribut désignant la colonne sur laquelle se trouve l'élément (le groupe). L'argon se trouve sur la dix-huitième colonne.
 
@@ -45,20 +62,27 @@ Prenez le temps de bien comprendre chaque information, en comparant avec le tabl
 - L'oxygène a été retiré du fichier `index.html` : rajoutez-le.
 - Il est déjà temps d'effectuer un petit `commit` pour conclure cette introduction.
 
-### Étape 2 : Un peu de couleur avec SCSS
+## Étape 2 : Un peu de couleur avec SCSS
 
-- Afin de pouvoir utiliser SCSS :
-  - Dans le dossier de travail, transformer votre projet simple en projet npm avec `npm init`
-  - Installer [parcel](https://parceljs.org/) avec `npm install parcel --save-dev`
-  - Dans `package.json`, ajouter un script `"serve": "parcel src/index.html"`
-  - Lancer `npm run serve`. Parcel _build_ votre site et l'ouvre dans le navigateur, sur _localhost_.
-- Ajouter un fichier `styles.scss` à votre projet et l'importer à partir du HTML. Parcel s'occupera de la transformation en CSS.
-- Ajouter un fichier `reset.scss` à votre projet contenant le [reset CSS classique](https://meyerweb.com/eric/tools/css/reset/), sans l'importer dans le HTML.
-- Dans le fichier `styles.scss`, utiliser un import SASS pour importer le fichier `reset.scss`.
+Ajouter un fichier `src/styles/styles.scss` à votre projet et l'importer à partir de `index.html`. Vite s'occupera de la transformation en CSS natif.
+
+### Reset CSS
+
+- Ajouter un fichier `src/styles/vendors/reset.scss` à votre projet contenant le [reset CSS classique](https://meyerweb.com/eric/tools/css/reset/), sans l'importer dans l'index.html (seul le fichier principal est importé).
+
+- Dans le fichier `styles.scss`, utiliser un import SASS pour importer le fichier `reset.scss` :
+
+```scss
+@import 'vendors/reset.scss';
+```
+
+Cela doit avoir pour effet de faire disparaître les styles par défaut du navigateur.
+
+### Styles de base
 
 Dans vos projets, toujours inclure les deux règles CSS suivantes (rappel sur [box-sizing](https://developer.mozilla.org/fr/docs/Web/CSS/box-sizing)) :
 
-```
+```css
 * {
   box-sizing: border-box;
 }
@@ -68,30 +92,33 @@ img {
 }
 ```
 
-Les couleurs du tableau périodique ne sont pas normalisées, il est donc possible de les choisir, tant que un type est strictement associé à une couleur. Voici un exemple :
+
+Les couleurs du tableau périodique ne sont pas normalisées, il est donc possible de les choisir, tant qu'un type est strictement associé à une couleur. Voici un exemple :
 
 ![](src/assets/models/colors.png)
 
-Tout d'abord, utilisez `lightgrey` sur le sélecteur `.el`, pour que les éléments sans type soient en gris à la fin.
+Tout d'abord, utilisez `lightgrey` sur le sélecteur `.element`, pour que les éléments sans type soient en gris à la fin.
 
-Pour le reste des couleurs, plutôt que de le faire à la main, utilisons les fonctionnalités avancées de SASS :
+Pour le reste des couleurs, plutôt que de le faire à la main, utilisons les fonctionnalités avancées de SASS et CSS :
 
 - [Lists](https://sass-lang.com/documentation/values/lists) (pour contenir les types)
-- [Boucle each](https://sass-lang.com/documentation/at-rules/control/each) ou [boucle for](https://sass-lang.com/documentation/at-rules/control/for) (pour itérer dessus)
-- [Couleurs HSL](https://sass-lang.com/documentation/modules#global-functions)(en faisant varier le paramètre hue entre 0 & 360, vous obtiendrez différentes teintes)
+- [Boucle each](https://sass-lang.com/documentation/at-rules/control/each) ou [boucle for](https://sass-lang.com/documentation/at-rules/control/for) (pour récupérer les éléments des listes)
+- [Couleurs HSL](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl)(en faisant varier le paramètre hue entre 0 & 360, vous obtiendrez différentes teintes)
 - Les fonctions `$length`, `$nth`, `$index`...
 
 Plusieurs syntaxes sont possibles, mais le résultat doit occuper moins de 10 lignes.
 
 Pour vous aider à démarrer, voici la liste des types au format SCSS :
 
-```
+```scss
 $types: alkaliMetal lanthanide nobleGas transitionMetal postTransitionMetal alkalineEarthMetal actinide metalloid otherNonMetal;
 ```
 
+*Astuce : pour comprendre le code CSS généré par votre fichier SCSS, lancez la commande `npm run build` et analysez le résultat généré dans le dossier `dist`.*
+
 Une fois ceci fait, `git commit` !
 
-### Étape 3 : Grille mobile
+## Étape 3 : Grille mobile
 
 Les propriétés suivantes seront exclues :
 
@@ -112,19 +139,19 @@ Et voici le comportement responsive souhaité, tant que l'écran n'est pas assez
 
 Vous aurez besoin :
 
-- De transformer le `body` en grille
-- De définir la hauteur des `rows`, peu importe combien il y en a
+- De transformer l'élément `.table` en grille
+- De définir la hauteur des `rows` (dont on ignore la quantité)
 - De définir les `columns`, variant d'un minimum à un maximum, mais remplissant toujours l'espace horizontal
 
 Un peu [d'inspiration](https://codepen.io/chriscoyier/pen/ecff0af160b3fd32cf67841b1eb6cfc3) pour résoudre ce problème !
 
 N'oubliez pas le `commit` de fin d'étape.
 
-### Étape 4 : Grille classique
+## Étape 4 : Grille classique
 
-Inspirez vous de l'étape 3 du TP Flexbox pour écrire une `mixin` vous permettant de cibler les écrans de taille supérieure à `1400px`.
+Inspirez vous du **TP Flexbox** pour écrire une `mixin` vous permettant de cibler les écrans de taille supérieure à `1400px`, c'est à dire `87.5em` (l'usage de l'unité `em` est recommandée pour les media queries).
 
-_Note : pour ne pas être gêné par la longueur du nom de certains éléments (#rutherfordium), je vous conseille de réduire leur font-size à 10px._
+_Note : pour ne pas être gêné par la longueur du nom de certains éléments (#rutherfordium), je vous conseille de réduire leur font-size à 0.75rem._
 
 Utilisez cette `mixin` pour re-définir sur le `body` les `rows` et les `columns`, dont vous connaissez maintenant le nombre (pour rappel, on ignore les deux lignes du bas sur le tableau classique).
 
@@ -138,7 +165,7 @@ _Note : vous pouvez-voir où sont les cellules de la grille en survolant les él
 
 `git commit`
 
-### Étape 5 : Placer les éléments
+## Étape 5 : Placer les éléments
 
 Rappelez-vous : chaque élément possède des attributs `data-period` et `data-group`, définissant respectivement leur ligne et colonne.
 
@@ -154,7 +181,7 @@ Le résultat attendu :
 
 <img src="src/assets/models/final.png" width="600px">
 
-Félicitations, vous avez complété le TP. Vous pouvez aller plus loin (voir section suivante) ou soumettre votre travail via une pull request.
+Félicitations, vous avez complété le TP. Si vous le souhaitez, vous pouvez aller plus loin (voir section suivante).
 
 ### Aller plus loin
 
