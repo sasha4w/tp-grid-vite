@@ -4,7 +4,7 @@ Pour se familiariser avec les différentes propriétés : [Grid Garden](https://
 
 Le but de ce TP est d'utiliser CSS Grid pour intégrer simplement un tableau complexe : le tableau périodique des éléments.
 
-<img src="src/assets/models/periodic.png" width="600px">
+<img src="doc/periodic.png" width="600px">
 
 Le tableau interactif (mais non responsive !) qui nous servira de référence se trouve [ici](https://www.ptable.com/?lang=en).
 
@@ -95,7 +95,7 @@ img {
 
 Les couleurs du tableau périodique ne sont pas normalisées, il est donc possible de les choisir, tant qu'un type est strictement associé à une couleur. Voici un exemple :
 
-![](src/assets/models/colors.png)
+![](doc/colors.png)
 
 Tout d'abord, utilisez `lightgrey` sur le sélecteur `.element`, pour que les éléments sans type soient en gris à la fin.
 
@@ -131,11 +131,11 @@ Les propriétés suivantes seront exclues :
 
 Le tableau ne peut pas être représenté dans sa forme classique sur mobile, mais on peut l'adapter. Sur mobile, on souhaite présenter les éléments "en bloc" :
 
-![](src/assets/models/mobile-grid.png)
+![](doc/mobile-grid.png)
 
 Et voici le comportement responsive souhaité, tant que l'écran n'est pas assez grand pour présenter la mise en forme classique :
 
-![](src/assets/models/responsive.gif)
+![](doc/responsive.gif)
 
 Vous aurez besoin :
 
@@ -159,7 +159,7 @@ Indice : le mot-clé `repeat` vous sera utile à deux reprises.
 
 Comme les éléments ne sont pas encore correctement placés, le résultat va ressembler à ça :
 
-<img src="src/assets/models/stack.png" width="600px">
+<img src="doc/stack.png" width="600px">
 
 _Note : vous pouvez-voir où sont les cellules de la grille en survolant les éléments dans l'inspecteur._
 
@@ -179,17 +179,17 @@ Vous pouvez placer les éléments dans la grille en combinant :
 
 Le résultat attendu :
 
-<img src="src/assets/models/final.png" width="600px">
+<img src="doc/final.png" width="600px">
 
 Félicitations, vous avez complété le TP. Si vous le souhaitez, vous pouvez aller plus loin (voir section suivante).
 
-### Aller plus loin
+## Aller plus loin
 
 Le [tableau](https://www.ptable.com/?lang=en) n'est pas complet ! Il manque les **lanthanides** et les **actinides**, qui ont la particularité d'être souvent représentés en dessous du tableau principal.
 
 À vous de trouver comment modifier la grille pour afficher ces éléments. Ils sont déjà présents dans le HTML, il vous suffit de retirer les commentaires. Modifiez le HTML selon vos besoins.
 
-### Aller encore plus loin
+## Aller encore plus loin
 
 Et si l'écran était assez large pour afficher les **lanthanides** et les **actinides** dans le tableau principal, et pas dans des lignes externes ?
 
@@ -197,7 +197,7 @@ C'est ce que vous pouvez voir en cliquant sur le bouton _wide_, en haut à droit
 
 Ajoutez une media query pour les très grands écrans pour afficher le tableau complet.
 
-![](src/assets/models/wide.png)
+![](doc/wide.png)
 
 ## Ressources
 
