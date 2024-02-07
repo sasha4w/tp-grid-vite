@@ -1,0 +1,10 @@
+$types: alkaliMetal lanthanide nobleGas transitionMetal postTransitionMetal
+  alkalineEarthMetal actinide metalloid otherNonMetal;
+.element {
+  color: lightgrey;
+}
+@each $type in $types {
+  .element--#{$type} {
+    background-color: hsl(var(--color-element) 30% 60%);
+  }
+}

@@ -1,0 +1,13 @@
+@import "vendors/reset.scss";
+@import "table.scss";
+@import "element.scss";
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+:root {
+  --color-element: 0;
+}
