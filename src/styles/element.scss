@@ -1,10 +1,34 @@
+@use "sass:list";
 $types: alkaliMetal lanthanide nobleGas transitionMetal postTransitionMetal
   alkalineEarthMetal actinide metalloid otherNonMetal;
 .element {
-  color: lightgrey;
-}
-@each $type in $types {
-  .element--#{$type} {
-    background-color: hsl(var(--color-element) 30% 60%);
+  color: black;
+  background-color: lightgrey;
+  font-size: 2rem;
+  @include large {
+    font-size: 0.8rem;
   }
+}
+$step: calc(360deg / length($types));
+@each $type in $types {
+  $index: index($types, $type);
+  .element--#{$type} {
+    background-color: hsl($index * $step 80% 80%);
+  }
+}
+
+@include large {
+  @for $group from 1 through 18 {
+    [data-group="#{$group}"] {
+      grid-column: $group;
+    }
+    .element--lanthanide {
+      grid-row: 8;
+    }
+    .element--actinide {
+      grid-row: 9;
+    }
+  }
+}
+@include extralarge {
 }

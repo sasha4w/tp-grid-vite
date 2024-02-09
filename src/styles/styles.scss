@@ -1,3 +1,13 @@
+@mixin large {
+  @media screen and (min-width: 87.5em) {
+    @content;
+  }
+}
+@mixin extralarge {
+  @media screen and (min-width: 175em) {
+    @content;
+  }
+}
 @import "vendors/reset.scss";
 @import "table.scss";
 @import "element.scss";

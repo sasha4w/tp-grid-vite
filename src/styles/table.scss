@@ -1,0 +1,22 @@
+.table {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  @include large {
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(75px, 1fr));
+  }
+}
+.table > article {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  aspect-ratio: 1/1;
+  @include large {
+    aspect-ratio: 1/1.5;
+  }
+  font-weight: bold;
+}
